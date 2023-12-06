@@ -1,0 +1,45 @@
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
+
+name: release nuget package
+
+jobs:
+  call_reusable_run_tests:
+    name: run tests
+    uses: ./.github/workflows/reusable_run_tests.yml
+
+  release:
+    name: release
+    needs: call_reusable_run_tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Get branch and tag
+      id: branch_name
+      run: |
+        echo "SOURCE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Display dotnet version
+      run: |
+        dotnet --version
+
+    - name: Build and publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GIT_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+        USERNAME: magicxor
+      run: |
+        if [[ -z ${GIT_TAG} ]] || [[ ${GIT_TAG} == refs/heads/* ]]; then exit 1; else appversion=${GIT_TAG}; fi
+        cd MagicxorAnalyzer.CSharp.Package
+        dotnet publish --configuration Release /p:Version=${appversion} /p:ContinuousIntegrationBuild=true
+        dotnet pack --configuration Release /p:Version=${appversion} /p:ContinuousIntegrationBuild=true
+        dotnet nuget add source --username ${USERNAME} --password ${GITHUB_TOKEN} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/magicxor/index.json"
+        dotnet nuget push "bin/Release/MagicxorAnalyzer.CSharp.${appversion}.nupkg" --api-key ${GITHUB_TOKEN} --source "github"
