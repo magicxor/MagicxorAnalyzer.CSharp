@@ -118,6 +118,78 @@ public class PrimaryConstructorsNotAllowedRuleTests
     }
 
     [TestMethod]
+    public async Task NotTriggered_When_Struct_HasNoConstructorAndProps()
+    {
+        const string test = """
+                                using System;
+                                using System.Collections.Generic;
+                                using System.Linq;
+                                using System.Text;
+                                using System.Threading.Tasks;
+                                using System.Diagnostics;
+
+                                namespace ConsoleApplication1
+                                {
+                                    struct SomeStruct
+                                    {
+                                    }
+                                }
+                            """;
+
+        await VerifyCS.VerifyAnalyzerAsync(test);
+    }
+
+    [TestMethod]
+    public async Task NotTriggered_When_Struct_HasNoConstructor()
+    {
+        const string test = """
+                                using System;
+                                using System.Collections.Generic;
+                                using System.Linq;
+                                using System.Text;
+                                using System.Threading.Tasks;
+                                using System.Diagnostics;
+
+                                namespace ConsoleApplication1
+                                {
+                                    public struct SomeStruct
+                                    {
+                                        public DateTime SomeDateTime { get; set; }
+                                        public int SomeProp1 { get; set; }
+                                    }
+                                }
+                            """;
+
+        await VerifyCS.VerifyAnalyzerAsync(test);
+    }
+
+    [TestMethod]
+    public async Task NotTriggered_When_Struct_HasNormalConstructorWithArg()
+    {
+        const string test = """
+                                using System;
+                                using System.Collections.Generic;
+                                using System.Linq;
+                                using System.Text;
+                                using System.Threading.Tasks;
+                                using System.Diagnostics;
+
+                                namespace ConsoleApplication1
+                                {
+                                    public struct SomeStruct
+                                    {
+                                        public SomeStruct(string str) : this() {}
+
+                                        public DateTime SomeDateTime { get; set; }
+                                        public int SomeProp1 { get; set; }
+                                    }
+                                }
+                            """;
+
+        await VerifyCS.VerifyAnalyzerAsync(test);
+    }
+
+    [TestMethod]
     public async Task NotTriggered_When_Record_HasNormalConstructorWithoutArg()
     {
         const string test = """
