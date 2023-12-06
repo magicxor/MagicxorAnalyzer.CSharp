@@ -1,0 +1,15 @@
+<!-- see https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-by-directory -->
+<!-- see https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview -->
+<Project>
+  <PropertyGroup>
+    <!-- Code analysis -->
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>8-all</AnalysisLevel>
+
+    <!-- Warnings and errors -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Features>strict</Features>
+  </PropertyGroup>
+</Project>

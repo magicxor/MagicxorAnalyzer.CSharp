@@ -1,0 +1,22 @@
+[*.cs]
+# CS1998: Async method lacks 'await' operators and will run synchronously
+# Reason: sometimes we need to have async mocks
+dotnet_diagnostic.CS1998.severity = suggestion
+
+# CA1707: Remove the underscores from member name
+dotnet_diagnostic.CA1707.severity = none
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+dotnet_diagnostic.CA2007.severity = none
+
+# CA1812: Avoid uninstantiated internal classes
+dotnet_diagnostic.CA1812.severity = none
+
+# SA1623: The property's documentation summary text should begin with: 'Gets'
+dotnet_diagnostic.SA1623.severity = none
+
+# CA1034: Do not nest type Test. Alternatively, change its accessibility so that it is not externally visible
+dotnet_diagnostic.CA1034.severity = suggestion
+
+# CA1000: Do not declare static members on generic types
+dotnet_diagnostic.CA1000.severity = suggestion

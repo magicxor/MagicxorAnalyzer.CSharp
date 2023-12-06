@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>MagicxorAnalyzer.CSharp</PackageId>
+    <Authors>magicxor</Authors>
+    <PackageLicenseUrl>https://unlicense.org/</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/magicxor/MagicxorAnalyzer.CSharp</PackageProjectUrl>
+    <PackageIconUrl>https://private-user-images.githubusercontent.com/8275793/288493728-1ff9485d-7577-4073-9bc4-e8c33dce1523.jpg?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDE4ODM4NzQsIm5iZiI6MTcwMTg4MzU3NCwicGF0aCI6Ii84Mjc1NzkzLzI4ODQ5MzcyOC0xZmY5NDg1ZC03NTc3LTQwNzMtOWJjNC1lOGMzM2RjZTE1MjMuanBnP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQUlXTkpZQVg0Q1NWRUg1M0ElMkYyMDIzMTIwNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyMzEyMDZUMTcyNjE0WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9MzViMjA3OTJmMDI3Yzc1YTRlYTE2MTRhMmEzYzA3MzUxM2I4OWUxOTRiZDhiZmM0ZTE2MjExNzU0NDBhOTk1YiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.Sh3dvVPlIhE0gMx3QDU7EbGJQMqUP6S758MSy3aHcqs</PackageIconUrl>
+    <RepositoryUrl>https://github.com/magicxor/MagicxorAnalyzer.CSharp</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>MagicxorAnalyzer.CSharp</Description>
+    <Copyright>magicxor</Copyright>
+    <PackageTags>MagicxorAnalyzer.CSharp, analyzers</PackageTags>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MagicxorAnalyzer.CSharp.CodeFixes\MagicxorAnalyzer.CSharp.CodeFixes.csproj" />
+    <ProjectReference Include="..\MagicxorAnalyzer.CSharp\MagicxorAnalyzer.CSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tools\*.ps1" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <Target Name="_AddAnalyzersToOutput">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\MagicxorAnalyzer.CSharp.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\MagicxorAnalyzer.CSharp.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
+    </ItemGroup>
+  </Target>
+
+</Project>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>MagicxorAnalyzer.CSharp</RootNamespace>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MagicxorAnalyzer.CSharp\MagicxorAnalyzer.CSharp.csproj" />
+  </ItemGroup>
+
+</Project>
