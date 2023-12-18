@@ -35,6 +35,6 @@ public readonly struct Category : System.IEquatable<Category>
 
     public override int GetHashCode()
     {
-        return System.HashCode.Combine(Name, ShortName);
+        return (Name, ShortName).GetHashCode();
     }
 }

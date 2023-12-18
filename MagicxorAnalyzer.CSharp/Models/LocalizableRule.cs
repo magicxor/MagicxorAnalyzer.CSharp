@@ -62,6 +62,6 @@ public readonly struct LocalizableRule : System.IEquatable<LocalizableRule>
 
     public override int GetHashCode()
     {
-        return System.HashCode.Combine(DiagnosticId, Title, Format, Description, Descriptor);
+        return (DiagnosticId, Title, Format, Description, Descriptor).GetHashCode();
     }
 }
